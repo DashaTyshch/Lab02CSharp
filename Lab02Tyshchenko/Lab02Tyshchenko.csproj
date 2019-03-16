@@ -59,6 +59,8 @@
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Storage.cs" />
     <Compile Include="Model\WelcomeModel.cs" />
+    <Compile Include="Model\ZodiacEnums.cs" />
+    <Compile Include="Tools\EnumDescriptionConverter.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\WelcomeViewModel.cs" />

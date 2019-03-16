@@ -20,7 +20,7 @@ namespace Lab02Tyshchenko.Model
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
 
-        public int CalcAge(DateTime dateTime)
+        public int CalculateAge(DateTime dateTime)
         {
             var age = DateTime.Today.Date.Year - dateTime.Date.Year;
             if (dateTime > DateTime.Today.AddYears(-age))

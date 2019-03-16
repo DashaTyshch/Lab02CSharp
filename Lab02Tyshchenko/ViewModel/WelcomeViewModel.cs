@@ -91,15 +91,14 @@ namespace Lab02Tyshchenko.ViewModel
 
         private bool ProceedCanExecute(object obj)
         {
-            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname) || string.IsNullOrWhiteSpace(Email))
-                return false;
-
-            return true;
+            return !(string.IsNullOrWhiteSpace(Name) ||
+                string.IsNullOrWhiteSpace(Surname) ||
+                string.IsNullOrWhiteSpace(Email));
         }
 
         private void ProceedExecute(object obj)
         {
-            var age = _welcomeModel.CalcAge(_date);
+            var age = _welcomeModel.CalculateAge(_date);
 
             if (age < 0)
                 MessageBox.Show("Ви ще не народилися :)", "Помилка");

@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Lab02Tyshchenko.Tools;
+using System;
 
 namespace Lab02Tyshchenko.Model
 {
     public class Person
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string Name { get; }
+        public string Surname { get; }
         public string Email { get; set; }
-        public DateTime BirthdayDate { get; set; }
+        public DateTime BirthdayDate { get; }
+
+        public string SunSign { get; }
+        public string ChineseSign { get; }
 
         public Person(string name, string surname, string email, DateTime birthdayDate)
         {
@@ -15,18 +19,29 @@ namespace Lab02Tyshchenko.Model
             Surname = surname;
             Email = email;
             BirthdayDate = birthdayDate;
+
+            SunSign = FindWestZodiac(BirthdayDate);
+            ChineseSign = FindChineseZodiac(BirthdayDate.Year);
         }
+
         public Person(string name, string surname, DateTime birthdayDate)
         {
             Name = name;
             Surname = surname;
             BirthdayDate = birthdayDate;
+
+            SunSign = FindWestZodiac(BirthdayDate);
+            ChineseSign = FindChineseZodiac(BirthdayDate.Year);
         }
+
         public Person(string name, string surname, string email)
         {
             Name = name;
             Surname = surname;
             Email = email;
+
+            SunSign = FindWestZodiac(BirthdayDate);
+            ChineseSign = FindChineseZodiac(BirthdayDate.Year);
         }
 
         public bool IsAdult
@@ -37,25 +52,7 @@ namespace Lab02Tyshchenko.Model
                 if (BirthdayDate > DateTime.Today.AddYears(-age))
                     age--;
 
-                if (age >= 18)
-                    return true;
-                return false;
-            }
-        }
-
-        public string SunSign
-        {
-            get
-            {
-                return FindWestZodiac(BirthdayDate);
-            }
-        }
-
-        public string ChineseSign
-        {
-            get
-            {
-                return FindCheneseZodiac(BirthdayDate.Year);
+                return (age >= 18);
             }
         }
 
@@ -73,65 +70,37 @@ namespace Lab02Tyshchenko.Model
             var month = date.Month;
 
             if ((month == 3 && day >= 21) || (month == 4 && day <= 20))
-                return "Овен";
+                return WestZodiac.Aries.GetDescription();
             if ((month == 4 && day >= 21) || (month == 5 && day <= 20))
-                return "Тілець";
+                return WestZodiac.Taurus.GetDescription();
             if ((month == 5 && day >= 21) || (month == 6 && day <= 21))
-                return "Близнюки";
+                return WestZodiac.Gemini.GetDescription();
             if ((month == 6 && day >= 22) || (month == 7 && day <= 22))
-                return "Рак";
+                return WestZodiac.Canser.GetDescription();
             if ((month == 7 && day >= 23) || (month == 8 && day <= 23))
-                return "Лев";
+                return WestZodiac.Leo.GetDescription();
             if ((month == 8 && day >= 24) || (month == 9 && day <= 23))
-                return "Діва";
+                return WestZodiac.Virgo.GetDescription();
             if ((month == 9 && day >= 24) || (month == 10 && day <= 22))
-                return "Терези";
+                return WestZodiac.Libra.GetDescription();
             if ((month == 10 && day >= 23) || (month == 11 && day <= 22))
-                return "Скорпіон";
+                return WestZodiac.Scorpio.GetDescription();
             if ((month == 11 && day >= 23) || (month == 12 && day <= 21))
-                return "Стрілець";
+                return WestZodiac.Sagittarius.GetDescription();
             if ((month == 12 && day >= 22) || (month == 1 && day <= 20))
-                return "Козеріг";
+                return WestZodiac.Capricorn.GetDescription();
             if ((month == 1 && day >= 21) || (month == 2 && day <= 19))
-                return "Водолій";
+                return WestZodiac.Aquarius.GetDescription();
             if ((month == 2 && day >= 20) || (month == 3 && day <= 20))
-                return "Риби";
+                return WestZodiac.Pisces.GetDescription();
             return "Упсс, щось пішло не так!";
         }
 
-        private string FindCheneseZodiac(int year)
+        private string FindChineseZodiac(int year)
         {
             var modY = year % 12;
 
-            switch (modY)
-            {
-                case 0:
-                    return "Мавпа";
-                case 1:
-                    return "Півень";
-                case 2:
-                    return "Собака";
-                case 3:
-                    return "Свиня";
-                case 4:
-                    return "Пацюк";
-                case 5:
-                    return "Бик";
-                case 6:
-                    return "Тигр";
-                case 7:
-                    return "Кролик";
-                case 8:
-                    return "Дракон";
-                case 9:
-                    return "Змія";
-                case 10:
-                    return "Кінь";
-                case 11:
-                    return "Вівця";
-                default:
-                    return "Упсс, щось пішло не так!";
-            }
+            return ((ChineseZodiac)modY).GetDescription();
         }
     }
 }
