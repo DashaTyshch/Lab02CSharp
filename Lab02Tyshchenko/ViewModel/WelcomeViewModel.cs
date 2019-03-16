@@ -98,14 +98,12 @@ namespace Lab02Tyshchenko.ViewModel
 
         private void ProceedExecute(object obj)
         {
-            var age = _welcomeModel.CalculateAge(_date);
-
-            if (age < 0)
-                MessageBox.Show("Ви ще не народилися :)", "Помилка");
-            else if (age >= 135)
-                MessageBox.Show("Невже хтось так довго живе? :)", "Помилка");
-            else
-                _welcomeModel.Login(Name,Surname,Email,Date);
+            try
+            {
+                _welcomeModel.Login(Name, Surname, Email, Date);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Помилка!");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -99,7 +99,6 @@ namespace Lab02Tyshchenko.Model
         private string FindChineseZodiac(int year)
         {
             var modY = year % 12;
-
             return ((ChineseZodiac)modY).GetDescription();
         }
     }

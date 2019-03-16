@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exceptions\DistantPastBirthdayException.cs" />
+    <Compile Include="Exceptions\FutureBirthdayException.cs" />
+    <Compile Include="Exceptions\InvalidEmailException.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Storage.cs" />

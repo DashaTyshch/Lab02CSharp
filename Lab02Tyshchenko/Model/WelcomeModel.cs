@@ -1,4 +1,5 @@
-﻿using Lab02Tyshchenko.Navigation;
+﻿using Lab02Tyshchenko.Exceptions;
+using Lab02Tyshchenko.Navigation;
 using System;
 
 namespace Lab02Tyshchenko.Model
@@ -14,6 +15,23 @@ namespace Lab02Tyshchenko.Model
 
         public void Login(string name, string surname, string email, DateTime date)
         {
+            var age = CalculateAge(date);
+
+            if (age < 0)
+                throw new FutureBirthdayException(date);
+            else if (age >= 135)
+                throw new DistantPastBirthdayException(date);
+
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+            }
+            catch (FormatException)
+            {
+                throw new InvalidEmailException(email);
+            }
+            
+
             Person person = new Person(name, surname, email, date);
             _storage.ChangeInfo(person);
 
