@@ -15,22 +15,7 @@ namespace Lab02Tyshchenko.Model
 
         public void Login(string name, string surname, string email, DateTime date)
         {
-            var age = CalculateAge(date);
-
-            if (age < 0)
-                throw new FutureBirthdayException(date);
-            else if (age >= 135)
-                throw new DistantPastBirthdayException(date);
-
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-            }
-            catch (FormatException)
-            {
-                throw new InvalidEmailException(email);
-            }
-            
+            ValidateData(email, date);
 
             Person person = new Person(name, surname, email, date);
             _storage.ChangeInfo(person);
@@ -38,7 +23,26 @@ namespace Lab02Tyshchenko.Model
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
 
-        public int CalculateAge(DateTime dateTime)
+        private void ValidateData(string email, DateTime date)
+        {
+            var age = CalculateAge(date);
+
+            if (age < 0)
+                throw new FutureBirthdayException(date);
+            if (age >= 135)
+                throw new DistantPastBirthdayException(date);
+
+            try
+            {
+                var _ = new System.Net.Mail.MailAddress(email);
+            }
+            catch (FormatException)
+            {
+                throw new InvalidEmailException(email);
+            }
+        }
+
+        private int CalculateAge(DateTime dateTime)
         {
             var age = DateTime.Today.Date.Year - dateTime.Date.Year;
             if (dateTime > DateTime.Today.AddYears(-age))
